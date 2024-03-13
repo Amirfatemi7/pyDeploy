@@ -16,16 +16,16 @@ def search():
         print(res["wind"])
 
         if res["description"] == "Partly cloudy":
-            pixmap = QPixmap('/img/pCloud.png')
+            pixmap = QPixmap(' /img/pCloud.png')
             my_window.label.setPixmap(pixmap)
         if res["description"] == "Clear":
-            pixmap = QPixmap('/img/sun.png')
+            pixmap = QPixmap(' /img/sun.png')
             my_window.label.setPixmap(pixmap)
         if res["description"] == "Light drizzle":
-            pixmap = QPixmap('/img/cloud.png')
+            pixmap = QPixmap(' /img/cloud.png')
             my_window.label.setPixmap(pixmap)
         if res["description"] == "Light rain":
-            pixmap = QPixmap('/img/rain.png')
+            pixmap = QPixmap(' /img/rain.png')
             my_window.label.setPixmap(pixmap)
 
         
@@ -46,7 +46,7 @@ my_app = QApplication([])
 
 loader = QUiLoader()
 
-my_window = loader.load("/mnt/e/hosh/pyDeploy/API/assignment1/weatherApp.ui")
+my_window = loader.load(" /weatherApp.ui")
 my_window.show()
 
 
