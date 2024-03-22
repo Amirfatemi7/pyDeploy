@@ -50,34 +50,34 @@ def pieces_img(piece_name: str):
     try:
         match piece_name:
             case "bishop":
-                image_path = Path("/img/bishop.png")
+                image_path = Path("img/bishop.png")
                 if not image_path.is_file():
                     return {"error": "Image not found on the server"}
                 return FileResponse(image_path)
             case "king":
-                image_path = Path("/img/king.png")
+                image_path = Path("img/king.png")
                 if not image_path.is_file():
                     return {"error": "Image not found on the server"}
                 return FileResponse(image_path)
             case "knight":
-                image_path = Path("/img/knight.png")
+                image_path = Path("img/knight.png")
                 if not image_path.is_file():
                     return {"error": "Image not found on the server"}
                 return FileResponse(image_path)
             case "pawn":
-                image_path = Path("/img/pawn.png")
+                image_path = Path("img/pawn.png")
                 if not image_path.is_file():
                     return {"error": "Image not found on the server"}
                 return FileResponse(image_path)
 
             case "queen":
-                image_path = Path("/img/queen.png")
+                image_path = Path("img/queen.png")
                 if not image_path.is_file():
                     return {"error": "Image not found on the server"}
                 return FileResponse(image_path)
 
             case "rook":
-                image_path = Path("/img/rook.png")
+                image_path = Path("img/rook.png")
                 if not image_path.is_file():
                     return {"error": "Image not found on the server"}
                 return FileResponse(image_path)
