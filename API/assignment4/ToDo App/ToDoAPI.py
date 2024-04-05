@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, Form, UploadFile, HTTPException
+from fastapi import FastAPI, File, Form, UploadFile, HTTPException, status
 import sqlite3
 
 
@@ -12,14 +12,15 @@ def root():
 @app.get("/tasks")
 def read_tasks():
     tasks = read_tasks("tasks")
+    if tasks is False:
+        raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail= "database is free")
     return tasks
 
 @app.post("/tasks")
-def add_tasks(title: str = Form(),description: str = Form(), time:str = Form(), status:int = Form()):
-    create_task("tasks", title, description, time, status)
+def add_tasks(title: str = Form(),description: str = Form(), time:str = Form(), statuss:int = Form()):
+    create_task("tasks", title, description, time, statuss)
     task = read_tasks("tasks")
     return task
-
 
 @app.delete("/tasks/{id}")
 def remove_tasks(id: int):
@@ -27,8 +28,8 @@ def remove_tasks(id: int):
     return {"msg":"tasks deleted"}
 
 @app.put("/tasks/{id}")
-def update_tasks(id:int, title: str = Form(),description: str = Form(), time:str = Form(), status:int = Form()):
-    update_task("tasks", id, title, description, time, status)
+def update_tasks(id:int, title: str = Form(),description: str = Form(), time:str = Form(), statuss:int = Form()):
+    update_task("tasks", id, title, description, time, statuss)
     task = read_tasks("tasks")
     return task
 
@@ -47,11 +48,11 @@ def create_table(table_name:str):
     connection.commit()
     connection.close()
 
-def create_task(table_name:str, title:str, description:str, time:str, status:int):
+def create_task(table_name:str, title:str, description:str, time:str, statuss:int):
     create_table(table_name)
     connection = connect_db()
     cursor = connection.cursor()
-    cursor.execute("insert into {}(title, description, time, status) VALUES (?, ?, ?, ?)".format(table_name), (title, description, time, status))
+    cursor.execute("insert into {}(title, description, time, status) VALUES (?, ?, ?, ?)".format(table_name), (title, description, time, statuss))
     connection.commit()
     connection.close()
 
@@ -63,17 +64,7 @@ def read_tasks(table_name:str):
     taskss = tasks.fetchall()
     connection.commit()
     connection.close()
-    tasks_dic = {}
-    # for task in taskss:
-    #     task_dic= {}
-    #     task_dic['id'] = task['id']
-    #     task_dic['title'] = task['title']
-    #     task_dic['description'] = task['description']
-    #     task_dic['time'] = task['time']
-    #     task_dic['status'] = task['status']
-    #     tasks_dic.append(task_dic)
-
-    print(tasks_dic)
+  
     return taskss
 
 def read_task(table_name:str):
@@ -86,11 +77,11 @@ def read_task(table_name:str):
     connection.close()
     return taskk
 
-def update_task(table_name:str, id:int, title:str, description:str, time:str, status:int):
+def update_task(table_name:str, id:int, title:str, description:str, time:str, statuss:int):
     create_table(table_name)
     connection = connect_db()
     cursor = connection.cursor()
-    cursor.execute("update {} set title = ?, description = ?, time = ?, status = ? where id = ?".format(table_name),(title, description, time, status, id))
+    cursor.execute("update {} set title = ?, description = ?, time = ?, status = ? where id = ?".format(table_name),(title, description, time, statuss, id))
     connection.commit()
     connection.close()
 
