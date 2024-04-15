@@ -30,6 +30,4 @@ apt-get install --assume-yes sqlite3 libsqlite3-dev
 uvicorn app.main:app --reload
 ```
 ### deployed in Liara
-```
 https://todoapp-amir.liara.run/
-```
